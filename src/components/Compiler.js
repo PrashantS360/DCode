@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Editor from "@monaco-editor/react";
+import LoadingBar from 'react-top-loading-bar'
 
-const Compiler = () => {
-
+const Compiler = ({ progress, setProgress }) => {
 
     // eslint-disable-next-line 
     const [result, setResult] = useState("");
@@ -15,10 +15,10 @@ const Compiler = () => {
     const output = async () => {
         const url = 'https://codexweb.netlify.app/.netlify/functions/enforceCode'
         const res = await fetch(url, {
-            mode:'no-cors',
+            mode: 'no-cors',
             method: "POST",
             headers: {
-                'Access-Control-Allow-Origin':'*',
+                'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -34,6 +34,13 @@ const Compiler = () => {
 
     return (
         <div className='my-4 mx-5 '>
+            <LoadingBar
+                color='#f11946'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+                shadow={true}
+                height={4}
+            />
             <div className='w-[80%] px-11 shadow-lg shadow-gray-500 m-auto'>
                 <form action="" className=''>
                     <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">

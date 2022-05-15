@@ -81,8 +81,9 @@ const Navbar = ({ sites, setFilter, filter, title, theme ,setTheme, themes}) => 
 
     useEffect(() => {
         initializefilter();
+        toggleSidebar();
         // eslint-disable-next-line
-    }, [])
+    }, [location])
 
 
 
@@ -138,12 +139,12 @@ const Navbar = ({ sites, setFilter, filter, title, theme ,setTheme, themes}) => 
                                     <BsMenuButtonWideFill />
                                     <span className="ml-3 text-lg font-medium"> Compiler </span>
                                 </Link>
-                                <a
-                                    href={'/contact'}
+                                <Link
+                                    to={'/contact'}
                                     className="flex items-center px-4 py-2 text-gray-500  rounded-lg hover:bg-gray-100 hover:text-gray-700">
                                     <MdContacts />
                                     <span className="ml-3 text-lg font-medium"> Contact Us</span>
-                                </a>
+                                </Link>
 
                                {location.pathname==="/" && <details className="group">
                                     <summary

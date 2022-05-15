@@ -1,8 +1,18 @@
 import React from 'react'
+import LoadingBar from 'react-top-loading-bar'
 
-const About = ({sites,theme}) => {
+
+const About = ({ sites, theme, setProgress, progress }) => {
+    
     return (
         <section className={`${theme.text1} ${theme.bg1} body-font`}>
+            <LoadingBar
+                color='#f11946'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+                shadow={true}
+                height={4}
+            />
             <div className="container px-5 py-12 mx-auto">
                 <div className="flex flex-col text-center w-full mb-20">
                     <h1 className={`sm:text-3xl text-2xl font-medium title-font mb-4 ${theme.text}`}>Supported Sites</h1>

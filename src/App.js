@@ -2,8 +2,8 @@ import './App.css';
 import Compiler from './components/Compiler';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route
+  Route,
+  Routes
 } from "react-router-dom";
 import Contests from './components/Contests';
 import Navbar from './components/Navbar';
@@ -16,41 +16,40 @@ import Footer from './components/Footer';
 function App() {
 
   const themes = {
-      light:{
-        text:'text-black',
-        text1:'text-gray-800',
-        text2:'text-gray-600',
-        bg:'bg-white',
-        bg1:'bg-gray-100',
-        bg2:'bg-gray-50'
-      },
-      dark:{
-        text:'text-white',
-        text1:'text-gray-200',
-        text2:'text-gray-300',
-        bg:'bg-black',
-        bg1:'bg-gray-800',
-        bg2:'bg-gray-500'
-      },
-      red:{
-        text:'text-white',
-        text1:'text-gray-200',
-        text2:'text-gray-300',
-        bg:'bg-red-800',
-        bg1:'bg-red-500',
-        bg2:'bg-red-300'
-      },
-      blue:{
-        text:'text-white',
-        text1:'text-gray-200',
-        text2:'text-gray-500',
-        bg:'bg-blue-800',
-        bg1:'bg-blue-500',
-        bg2:'bg-blue-300'
-      }
+    light: {
+      text: 'text-black',
+      text1: 'text-gray-800',
+      text2: 'text-gray-600',
+      bg: 'bg-white',
+      bg1: 'bg-gray-100',
+      bg2: 'bg-gray-50'
+    },
+    dark: {
+      text: 'text-white',
+      text1: 'text-gray-200',
+      text2: 'text-gray-300',
+      bg: 'bg-black',
+      bg1: 'bg-gray-800',
+      bg2: 'bg-gray-500'
+    },
+    red: {
+      text: 'text-white',
+      text1: 'text-gray-200',
+      text2: 'text-gray-300',
+      bg: 'bg-red-800',
+      bg1: 'bg-red-500',
+      bg2: 'bg-red-300'
+    },
+    blue: {
+      text: 'text-white',
+      text1: 'text-gray-200',
+      text2: 'text-gray-300',
+      bg: 'bg-blue-800',
+      bg1: 'bg-blue-500',
+      bg2: 'bg-blue-300'
     }
+  }
 
-  
   const [theme, setTheme] = useState(themes.light);
 
   const sites =
@@ -106,11 +105,12 @@ function App() {
   const [contests, setContests] = useState([]);
   useEffect(() => {
     getData();
-    if (localStorage.getItem('mode')){
+    if (localStorage.getItem('mode')) {
       setTheme(JSON.parse(localStorage.getItem('mode')))
     }
     // eslint-disable-next-line 
   }, [filter])
+
   // console.log(themes);
 
 
@@ -162,21 +162,18 @@ function App() {
         shadow={true}
         height={4}
       />
-      <Switch>
-        <Route exact path="/" >
-          <Contests contests={contests} theme={theme} sites={sites} title={title} filter={filter} />
-        </Route>
-        <Route exact path="/about" >
-          <About sites={sites} theme={theme}/>
-        </Route>
-        <Route exact path="/compiler">
-          <Compiler />
-        </Route>
-        <Route exact path="/contact">
-          <Contact theme={theme}/>
-        </Route>
-      </Switch>
-      <Footer theme={theme}/>
+
+      <Routes>
+        <Route exact path="/" index element={<Contests contests={contests} theme={theme} sites={sites} title={title} filter={filter} setProgress={setProgress} progress={progress} />} />
+
+        <Route exact path="about" element={<About sites={sites} theme={theme} setProgress={setProgress} progress={progress} />} />
+
+        <Route exact path="compiler" element={<Compiler setProgress={setProgress} progress={progress} />} />
+
+        <Route exact path="contact" element={<Contact theme={theme} setProgress={setProgress} progress={progress} />} />
+
+      </Routes>
+      <Footer theme={theme} />
     </Router >
   );
 }
