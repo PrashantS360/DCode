@@ -97,8 +97,8 @@ const Compiler = ({themes}) => {
     return (
         <section className={`py-12 ${themes.bg2} max-w-[1800px] mx-auto`}>
             <div className="flex flex-wrap w-full flex-col items-center text-center">
-                <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Code, Compile & Run</h1>
-                <p className="lg:w-1/2 w-full leading-relaxed text-gray-500">Compile & run your code with the DCode online IDE. Our online compiler supports multiple programming languages like Python, C++, C, Java and many more.
+                <h1 className={`sm:text-3xl text-2xl font-medium title-font mb-2 ${themes.text}`}>Code, Compile & Run</h1>
+                <p className={`lg:w-1/2 w-full leading-relaxed ${themes.text2}`}>Compile & run your code with the DCode online IDE. Our online compiler supports multiple programming languages like Python, C++, C, Java and many more.
                 </p>
             </div>
             <div className="min-h-screen flex flex-col md:flex-row md:space-x-1 mx-4 ">
@@ -152,7 +152,7 @@ const Compiler = ({themes}) => {
                         />
                     </div>
                 </div>
-                <div className={`right-container md:h-[90vh] md:w-1/3 ${curTheme === "vs-dark" ? "text-white" : "text-black"} my-7 h-[50vh]`}>
+                <div className={`right-container px-1 md:h-[90vh] md:w-1/3 ${curTheme === "vs-dark" ? "text-white" : "text-black"} my-7 h-[50vh]`}>
                     <div className=" md:my-0 my-40 h-full">
                         <div className="w-full">
                             <input className="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight" id="grid-city" type="text" value="Input" disabled />

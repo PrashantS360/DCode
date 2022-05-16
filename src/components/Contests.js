@@ -65,7 +65,7 @@ const Contests = ({ contests, sites, title, filter, theme, setProgress, progress
                                 <div className={`h-full shadow-md ${theme.bg2} bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative`}>
                                     <a className='text-center space-y-2 flex flex-col items-center' target="_blank" rel="noreferrer" href={sites[contest.site].link}>
                                         <img className='h-9 rounded-md w-9' src={sites[contest.site].logo} alt="" />
-                                        <h2 className=" tracking-widest text-sm text-green-700 title-font font-medium mb-1" >{contest.site}</h2>
+                                        <h3 className=" tracking-widest text-sm text-green-700 title-font font-medium mb-1" >{contest.site}</h3>
                                     </a>
                                     <a href={contest.url} target="_blank" rel="noreferrer" className={`title-font sm:text-2xl text-xl font-medium ${theme.text} mb-3 hover:text-indigo-400`}>{contest.name}</a>
                                     <div className={`leading-relaxed mb-3 ${theme.text2}`}>
