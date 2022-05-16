@@ -129,7 +129,7 @@ function App() {
     let filteredConst = [];
     setProgress(30);
     for (let item of filter) {
-      const res = await fetch(`https://kontests.net/api/v1/${item}`);
+      const res = await fetch(`${process.env.REACT_APP_API_KEY}/${item}`);
       const response = await res.json();
       if (item === "all") {
         setProgress(80);
