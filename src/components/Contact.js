@@ -6,7 +6,7 @@ const Contact = ({ theme, setProgress, progress }) => {
 
 
     return (
-        <section className={`${theme.bg1} ${theme.text2} body-font relative`}>
+        <section className={`${theme.bg1} ${theme.text2} body-font relative max-w-[1800px] mx-auto`}>
             <LoadingBar
                 color='#f11946'
                 progress={progress}

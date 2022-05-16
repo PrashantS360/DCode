@@ -44,7 +44,7 @@ const Contests = ({ contests, sites, title, filter, theme, setProgress, progress
 
     return (
         <>
-            <section className={`${theme.text2} ${theme.bg1} body-font min-h-screen`}>
+            <section className={`${theme.text2} ${theme.bg1} body-font min-h-screen max-w-[1800px] mx-auto`}>
                 <LoadingBar
                     color='#f11946'
                     progress={progress}

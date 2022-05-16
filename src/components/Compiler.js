@@ -95,17 +95,17 @@ const Compiler = ({themes}) => {
 
 
     return (
-        <section className={`py-12 ${themes.bg2}`}>
+        <section className={`py-12 ${themes.bg2} max-w-[1800px] mx-auto`}>
             <div className="flex flex-wrap w-full flex-col items-center text-center">
                 <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Code, Compile & Run</h1>
                 <p className="lg:w-1/2 w-full leading-relaxed text-gray-500">Compile & run your code with the DCode online IDE. Our online compiler supports multiple programming languages like Python, C++, C, Java and many more.
                 </p>
             </div>
-            <div className="min-h-screen flex flex-col md:flex-row mx-4 ">
+            <div className="min-h-screen flex flex-col md:flex-row md:space-x-1 mx-4 ">
                 <div className="editor h-[90vh] md:w-2/3 my-7">
                     <div className="">
-                        <div className="w-full flex ">
-                            <div className="relative w-1/3 pr-2">
+                        <div className="w-full flex flex-col md:space-x-2 md:flex-row">
+                            <div className="relative md:w-1/3 md:my-0 my-1">
                                 <select value={curLang} name="language" onChange={handleChange} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                     {languages.map((language) => {
                                         return <option key={language.value} value={language.value}>{language.label}</option>
@@ -116,7 +116,7 @@ const Compiler = ({themes}) => {
                                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                                 </div>
                             </div>
-                            <div className="relative w-1/3 pr-2">
+                            <div className="relative md:w-1/3 md:my-0 my-1">
                                 <select value={curTheme} name="theme" onChange={handleChange} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                     {mode.map((theme) => {
                                         return <option key={theme.value} value={theme.value}>{theme.label}</option>
@@ -127,9 +127,10 @@ const Compiler = ({themes}) => {
                                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                                 </div>
                             </div>
-                            <div className="relative justify-around mr-0.5 w-1/3 pr-2 space-x-2 flex appearance-none bg-gray-200 border text-gray-700 border-gray-200 py-3 px-4 rounded leading-tight focus:outline-none focus:border-gray-500">
-                                <span>Font Size</span>
-                                <input type="range" min="14" max="30" name="fontsize"
+
+                            <div className="relative md:my-0 my-1 justify-between mr-0.5 md:w-1/3 pr-2 space-x-2 lg:space-x-0 flex appearance-none bg-gray-200 border text-gray-700 border-gray-200 py-3 px-4 rounded leading-tight focus:outline-none focus:border-gray-500">
+                                <span className="md:hidden lg:block">Font Size</span>
+                                <input className="min-w-[60%]" type="range" min="14" max="30" name="fontsize"
                                     value={fontSize} step="2"
                                     onChange={handleChange} />
                             </div>
@@ -151,9 +152,9 @@ const Compiler = ({themes}) => {
                         />
                     </div>
                 </div>
-                <div className={`right-container md:h-[90vh] border-white border-l-2 md:w-1/3 ${curTheme === "vs-dark" ? "text-white" : "text-black"} my-7 h-[50vh]`}>
-                    <div className="m-0 h-full">
-                        <div className="w-full ">
+                <div className={`right-container md:h-[90vh] md:w-1/3 ${curTheme === "vs-dark" ? "text-white" : "text-black"} my-7 h-[50vh]`}>
+                    <div className=" md:my-0 my-40 h-full">
+                        <div className="w-full">
                             <input className="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight" id="grid-city" type="text" value="Input" disabled />
                         </div>
                         <div className={`input-box h-full ${curTheme === "vs-dark" ? "bg-black" : "bg-white"}`}>
@@ -164,7 +165,7 @@ const Compiler = ({themes}) => {
                 </div>
 
             </div>
-            <button type="button" className="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none items-center space-x-2 hover:bg-indigo-600 rounded text-lg" onClick={compileCode}>
+            <button type="button" className="flex mx-auto md:mt-16 md:my-0 mt-56 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none items-center space-x-2 hover:bg-indigo-600 rounded text-lg" onClick={compileCode}>
                 {!loading && <BsFillPlayFill />}
                 {loading && <div className="w-4 h-4"><Loader type="run" /></div>}
                 {loading ? "Processing..." : "Run"}

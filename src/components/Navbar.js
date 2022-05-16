@@ -93,7 +93,7 @@ const Navbar = ({ sites, setFilter, filter, title, theme ,setTheme, themes}) => 
                 <span onClick={toggleSidebar} className="cursor-pointer text-2xl text-slate-600"><GiHamburgerMenu className={`${theme.bg} ${theme.text}`} /></span>
             </div>
             <div className="nav flex flex-col md:flex-row md:justify-between items-center w-full">
-                <ul className='flex space-x-5 text-lg items-center font-bold my-2'>
+                <ul className='flex space-x-2 md:space-x-5 text-lg items-center font-bold my-2'>
                     <li onClick={()=>{saveTheme(themes.light)}} className='w-14 cursor-pointer rounded-md h-6 bg-white border-2 border-gray-500'></li>
                     <li onClick={()=>{saveTheme(themes.dark)}} className='w-14 cursor-pointer rounded-md h-6 bg-black border-2 border-gray-500'></li>
                     <li onClick={()=>{saveTheme(themes.red)}} className='w-14 cursor-pointer rounded-md h-6 bg-red-700 border-2 border-gray-500'></li>

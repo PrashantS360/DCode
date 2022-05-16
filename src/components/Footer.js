@@ -3,7 +3,7 @@ import React from 'react'
 
 const Footer = ({theme}) => {
     return (
-        <footer className={`${theme.text} ${theme.bg} body-font`}>
+        <footer className={`${theme.text} ${theme.bg} body-font max-w-[1800px] mx-auto`}>
             <hr />
             <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
                 <a href="/" className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
