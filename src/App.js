@@ -154,6 +154,7 @@ function App() {
 
   return (
     <Router>
+     
       <Navbar sites={sites} theme={theme} themes={themes} setTheme={setTheme} setFilter={setFilter} filter={filter} title={title} />
       <LoadingBar
         color='#f11946'
@@ -168,7 +169,7 @@ function App() {
 
         <Route exact path="about" element={<About sites={sites} theme={theme} setProgress={setProgress} progress={progress} />} />
 
-        <Route exact path="compiler" element={<Compiler setProgress={setProgress} progress={progress} />} />
+        <Route exact path="ide" element={<Compiler themes={theme} setProgress={setProgress} progress={progress} />} />
 
         <Route exact path="contact" element={<Contact theme={theme} setProgress={setProgress} progress={progress} />} />
 

@@ -134,10 +134,10 @@ const Navbar = ({ sites, setFilter, filter, title, theme ,setTheme, themes}) => 
                                     <span className="ml-3 text-lg font-medium"> About </span>
                                 </Link>
                                 <Link
-                                    to={'/compiler'}
+                                    to={'/ide'}
                                     className="flex items-center px-4 py-2 text-gray-500  rounded-lg hover:bg-gray-100 hover:text-gray-700">
                                     <BsMenuButtonWideFill />
-                                    <span className="ml-3 text-lg font-medium"> Compiler </span>
+                                    <span className="ml-3 text-lg font-medium"> Online IDE </span>
                                 </Link>
                                 <Link
                                     to={'/contact'}
