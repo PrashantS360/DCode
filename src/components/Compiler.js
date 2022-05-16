@@ -53,7 +53,7 @@ const Compiler = ({themes}) => {
         setLoading(true);
         setOutput("")
         // Post request to compile endpoint
-        const res = await fetch(`http://localhost:8000/compile`, {
+        const res = await fetch(`${process.env.REACT_APP_BACKEND}/compile`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
