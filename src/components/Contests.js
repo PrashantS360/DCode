@@ -42,6 +42,8 @@ const Contests = ({ contests, sites, title, filter, theme, setProgress, progress
     };
 
 
+
+
     return (
         <>
             <section className={`${theme.text2} ${theme.bg1} body-font min-h-screen max-w-[1800px] mx-auto`}>
@@ -59,6 +61,8 @@ const Contests = ({ contests, sites, title, filter, theme, setProgress, progress
                             return <span key={flt} className={`category space-x-2 pb-4 text-center ${theme.text2}`}>{title(flt)}{idx === filter.length - 1 ? "" : ", "}</span>
                         })})
                     </div>
+
+                    {contests.length === 0 && <div className={` flex items-center justify-center my-3 h-[40vh] p-5 text-2xl ${theme.text} ${theme.bg2}`}>No Results to show...</div>}
                     <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1">
                         {contests.map((contest) => {
                             return <div key={contest.name} className="p-4 ">

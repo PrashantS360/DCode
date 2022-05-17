@@ -8,7 +8,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
-const Navbar = ({ sites, setFilter, filter, title, theme ,setTheme, themes}) => {
+const Navbar = ({ sites, status, setStatus, setFilter, today, setToday, filter, title, theme, setTheme, themes }) => {
 
     const location = useLocation();
 
@@ -29,8 +29,6 @@ const Navbar = ({ sites, setFilter, filter, title, theme ,setTheme, themes}) => 
         }
         setFilteredSites(temp);
     }
-
-    // console.log(filteredSites);
 
 
     const ref = useRef()
@@ -57,15 +55,15 @@ const Navbar = ({ sites, setFilter, filter, title, theme ,setTheme, themes}) => 
         }
     }
 
-    const changeFilter = ()=>{
+    const changeFilter = () => {
         let temp = [];
         let keys = Object.keys(filteredSites);
-        for(let i=0;i<keys.length;i++){
-            if (filteredSites[keys[i]]===true){
-                if (keys[i]==='All'){
+        for (let i = 0; i < keys.length; i++) {
+            if (filteredSites[keys[i]] === true) {
+                if (keys[i] === 'All') {
                     temp.push('all');
                 }
-                else{
+                else {
                     temp.push(sites[keys[i]].title);
                 }
             }
@@ -74,10 +72,24 @@ const Navbar = ({ sites, setFilter, filter, title, theme ,setTheme, themes}) => 
         toggleSidebar();
     }
 
-    const saveTheme = (mode)=>{
+    const saveTheme = (mode) => {
         setTheme(mode)
-        localStorage.setItem('mode',JSON.stringify(mode));
+        localStorage.setItem('mode', JSON.stringify(mode));
     }
+
+    const handleChange = (e) => {
+        if (e.target.name === "today") {
+            setToday(e.target.checked)
+            setStatus(false)
+        }
+        else if (e.target.name === "status") {
+            setToday(false)
+            setStatus(e.target.checked)
+        }
+    }
+
+
+
 
     useEffect(() => {
         initializefilter();
@@ -94,11 +106,11 @@ const Navbar = ({ sites, setFilter, filter, title, theme ,setTheme, themes}) => 
             </div>
             <div className="nav flex flex-col md:flex-row md:justify-between items-center w-full">
                 <ul className='flex space-x-2 md:space-x-5 text-lg items-center font-bold my-2'>
-                    <li onClick={()=>{saveTheme(themes.light)}} className='w-14 cursor-pointer rounded-md h-6 bg-white border-2 border-gray-500'></li>
-                    <li onClick={()=>{saveTheme(themes.dark)}} className='w-14 cursor-pointer rounded-md h-6 bg-black border-2 border-gray-500'></li>
-                    <li onClick={()=>{saveTheme(themes.red)}} className='w-14 cursor-pointer rounded-md h-6 bg-red-700 border-2 border-gray-500'></li>
-                    <li onClick={()=>{saveTheme(themes.blue)}} className='w-14 cursor-pointer rounded-md h-6 bg-blue-700 border-2 border-gray-500'></li>
-                    
+                    <li onClick={() => { saveTheme(themes.light) }} className='w-14 cursor-pointer rounded-md h-6 bg-white border-2 border-gray-500'></li>
+                    <li onClick={() => { saveTheme(themes.dark) }} className='w-14 cursor-pointer rounded-md h-6 bg-black border-2 border-gray-500'></li>
+                    <li onClick={() => { saveTheme(themes.red) }} className='w-14 cursor-pointer rounded-md h-6 bg-red-700 border-2 border-gray-500'></li>
+                    <li onClick={() => { saveTheme(themes.blue) }} className='w-14 cursor-pointer rounded-md h-6 bg-blue-700 border-2 border-gray-500'></li>
+
                 </ul>
 
                 <div className="logo flex items-center " >
@@ -106,12 +118,12 @@ const Navbar = ({ sites, setFilter, filter, title, theme ,setTheme, themes}) => 
                 </div>
                 {/* </a></Link> */}
 
-                <div ref={ref} className={`sideCart z-10 overflow-y-auto fixed  h-full top-0 left-0  ${theme.bg==="bg-white"?"bg-gray-200":theme.bg} lg:w-[40%] max-w-[1300px] md:w-[50%] w-[65%] xl:w-[30%] py-11 px-8 transition-transform transform -translate-x-full`} >
+                <div ref={ref} className={`sideCart z-10 overflow-y-auto fixed  h-full top-0 left-0  ${theme.bg === "bg-white" ? "bg-gray-200" : theme.bg} lg:w-[40%] max-w-[1300px] md:w-[50%] w-[65%] xl:w-[30%] py-11 px-8 transition-transform transform -translate-x-full`} >
                     <span onClick={toggleSidebar} className="absolute top-2 right-2 cursor-pointer text-3xl text-slate-600"><AiFillCloseCircle className={`${theme.text}`} /></span>
                     <div className={`flex mb-3 flex-col justify-between h-fit bg-gray-50 rounded-md border-r`}>
                         <div className="px-4 py-6">
                             <Link to={'/'}>
-                                <span className={`block py-2 text-xl font-bold text-center ${theme.text} ${theme.bg==="bg-white"?"bg-gray-400":theme.bg} rounded-lg`}>&lt; DCode /&gt;</span>
+                                <span className={`block py-2 text-xl font-bold text-center ${theme.text} ${theme.bg === "bg-white" ? "bg-gray-400" : theme.bg} rounded-lg`}>&lt; DCode /&gt;</span>
                             </Link>
 
                             <nav className={`flex flex-col mt-6 space-y-1 `}>
@@ -146,7 +158,7 @@ const Navbar = ({ sites, setFilter, filter, title, theme ,setTheme, themes}) => 
                                     <span className="ml-3 text-lg font-medium"> Contact Us</span>
                                 </Link>
 
-                               {location.pathname==="/" && <details className="group">
+                                {location.pathname === "/" && <details className="group">
                                     <summary
                                         className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
                                     >
@@ -189,9 +201,33 @@ const Navbar = ({ sites, setFilter, filter, title, theme ,setTheme, themes}) => 
                                         })}
 
                                         <button onClick={changeFilter}
-                                            className=" px-4 py-2 bg-indigo-600 rounded-lg hover:bg-indigo-800 text-white">
+                                            className=" px-4 py-2 bg-indigo-600 rounded-lg mb-8 mt-2 hover:bg-indigo-800 text-white">
                                             Done
                                         </button>
+
+
+                                        <div className="flex items-center space-x-4 my-2 w-full justify-between">
+                                            <h3 className="text-gray-800">Present Coding Contests</h3>
+                                            <label htmlFor="status" className="flex items-center cursor-pointer">
+                                                <div className="relative">
+                                                    <input type="checkbox" id="status" className="sr-only" name="status" onChange={handleChange} checked={status} />
+                                                    <div className="block bg-gray-400 w-14 h-7 rounded-full"></div>
+                                                    <div className="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition"></div>
+                                                </div>
+                                            </label>
+                                        </div>
+
+                                        <div className="flex items-center space-x-4 my-2 w-full justify-between">
+                                            <h3 className="text-gray-800">Contest in 24 Hours</h3>
+                                            <label htmlFor="today" className="flex items-center cursor-pointer">
+                                                <div className="relative">
+                                                    <input type="checkbox" id="today" className="sr-only" name="today" onChange={handleChange} checked={today} />
+                                                    <div className="block bg-gray-400 w-14 h-7 rounded-full"></div>
+                                                    <div className="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition"></div>
+                                                </div>
+                                            </label>
+                                        </div>
+
                                     </nav>
                                 </details>}
 

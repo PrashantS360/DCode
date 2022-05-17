@@ -103,15 +103,21 @@ function App() {
 
   const [filter, setFilter] = useState(["all"]);
   const [contests, setContests] = useState([]);
+
+  
+  const [today, setToday] = useState(false);
+  const [status, setStatus] = useState(false);
+  const [progress, setProgress] = useState(0);
+
   useEffect(() => {
     getData();
     if (localStorage.getItem('mode')) {
       setTheme(JSON.parse(localStorage.getItem('mode')))
     }
-    // eslint-disable-next-line 
-  }, [filter])
 
-  // console.log(themes);
+    // eslint-disable-next-line 
+  }, [filter,today,status])
+
 
 
   const title = (filt) => {
@@ -124,15 +130,36 @@ function App() {
     return "All"
   }
 
+  const sorting = (a, b) => {
+    return a.start_time.localeCompare(b.start_time)
+  }
+
+
+  const applyTimeFilter = (arr,property, val)=>{
+    let result = []
+    for (let item of arr){
+      if (item[property]===val){
+        result.push(item);
+      }
+    }
+    return result;
+  }
 
   const getData = async () => {
     let filteredConst = [];
     setProgress(30);
     for (let item of filter) {
       const res = await fetch(`${process.env.REACT_APP_API_KEY}/${item}`);
-      const response = await res.json();
+      let response = await res.json();
       if (item === "all") {
         setProgress(80);
+        response.sort(sorting);
+        if (today){
+          response = applyTimeFilter(response,"in_24_hours","Yes")
+        }
+        if (status){
+          response = applyTimeFilter(response,"status","CODING")
+        }
         setContests(response);
         setProgress(100);
         return;
@@ -145,17 +172,22 @@ function App() {
       }
     }
     setProgress(80);
+    filteredConst.sort(sorting);
+    if (today){
+      filteredConst = applyTimeFilter(filteredConst,"in_24_hours","Yes")
+    }
+    if (status){
+      filteredConst = applyTimeFilter(filteredConst,"status","CODING")
+    }
     setContests(filteredConst)
     setProgress(100);
   }
 
-  const [progress, setProgress] = useState(0);
-  // console.log(contests);
 
   return (
     <Router>
-     
-      <Navbar sites={sites} theme={theme} themes={themes} setTheme={setTheme} setFilter={setFilter} filter={filter} title={title} />
+
+      <Navbar sites={sites} theme={theme} themes={themes} setTheme={setTheme} setFilter={setFilter} filter={filter} today={today} setToday={setToday} title={title} status={status} setStatus={setStatus} />
       <LoadingBar
         color='#f11946'
         progress={progress}
@@ -165,7 +197,7 @@ function App() {
       />
 
       <Routes>
-        <Route exact path="/" index element={<Contests contests={contests} theme={theme} sites={sites} title={title} filter={filter} setProgress={setProgress} progress={progress} />} />
+        <Route exact path="/" index element={<Contests contests={contests} theme={theme} sites={sites} title={title} filter={filter} setContests={setContests} setProgress={setProgress} progress={progress} />} />
 
         <Route exact path="about" element={<About sites={sites} theme={theme} setProgress={setProgress} progress={progress} />} />
 

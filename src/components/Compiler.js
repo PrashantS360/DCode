@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import Loader from "./Loader";
 import { BsFillPlayFill } from 'react-icons/bs'
+import { AiOutlineCopy } from 'react-icons/ai';
 
-const Compiler = ({themes}) => {
+const Compiler = ({ themes }) => {
 
     useEffect(() => {
         if (localStorage.getItem('theme') === "vs-dark" || localStorage.getItem('theme') === "light") {
@@ -68,7 +69,6 @@ const Compiler = ({themes}) => {
         const response = await res.json();
         setLoading(false);
         setOutput(response.output)
-        console.log(response);
     }
 
 
@@ -87,9 +87,16 @@ const Compiler = ({themes}) => {
             setFontSize(e.target.value)
             localStorage.setItem('fontsize', e.target.value)
         }
-        // console.log(e.target.value);
     }
 
+    const [copybtn, setCopybtn] = useState("Copy");
+    const copyToClipboard = (text) => {
+        navigator.clipboard.writeText(text);
+        setCopybtn("Copied");
+        setTimeout(() => {
+            setCopybtn("Copy");
+        }, 1000);
+    }
 
 
 
@@ -154,8 +161,13 @@ const Compiler = ({themes}) => {
                 </div>
                 <div className={`right-container px-1 md:h-[90vh] md:w-1/3 ${curTheme === "vs-dark" ? "text-white" : "text-black"} my-7 h-[50vh]`}>
                     <div className=" md:my-0 my-40 h-full">
-                        <div className="w-full">
-                            <input className="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight" id="grid-city" type="text" value="Input" disabled />
+                        <div className="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight ">
+                            <div className="flex justify-between">
+                                <input id="grid-city" type="text" value="Input" disabled />
+                                <button type="button" className="flex text-white bg-indigo-500 border-0 py-1.5 px-3 -my-1.5 focus:outline-none items-center hover:bg-indigo-600 rounded text-xs -ml-11 lg:ml-0" onClick={() => { copyToClipboard(input) }}>
+                                    <AiOutlineCopy className="cursor-pointer " /> {copybtn}
+                                </button>
+                            </div>
                         </div>
                         <div className={`input-box h-full ${curTheme === "vs-dark" ? "bg-black" : "bg-white"}`}>
                             <textarea className={`overflow-y-auto py-2 px-4 w-full code-inp ${curTheme === "vs-dark" ? "bg-gray-900 text-white  h-full" : "bg-white text-black border-4 h-[102.2%] border-gray-700"}`} onChange={handleChange} name="input" id="input" value={input}>
@@ -170,9 +182,12 @@ const Compiler = ({themes}) => {
                 {loading && <div className="w-4 h-4"><Loader type="run" /></div>}
                 {loading ? "Processing..." : "Run"}
             </button>
-            <div className="h-[60vh] my-12 mx-5 pb-12">
-                <div className="w-full">
-                    <input className="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight" id="grid-city" type="text" value="Output" readOnly disabled />
+            <div className="h-[60vh] my-12 mx-5 pb-12 bg-red-400">
+                <div className="appearance-none justify-between w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight flex">
+                    <input  id="grid-city" type="text" value="Output" readOnly disabled />
+                    <button type="button" className="flex -ml-11 sm:ml-0 text-white bg-indigo-500 border-0 py-1.5 px-3 -my-1.5 focus:outline-none items-center hover:bg-indigo-600 rounded text-xs" onClick={() => { copyToClipboard(output) }}>
+                        <AiOutlineCopy className="cursor-pointer " /> {copybtn}
+                    </button>
                 </div>
                 <div className={`output h-full  overflow-auto ${curTheme === "vs-dark" ? "bg-gray-900 text-white border-2 border-white" : "bg-white text-black border-gray-700 border-4"}`}>
                     {loading && <div className="h-full spinner-box flex items-center justify-center">
@@ -180,6 +195,7 @@ const Compiler = ({themes}) => {
                     </div>}
                     {!loading && <div className=" output-box py-2 pb-5 px-5 overflow-visible">
                         <pre className="overflow-visible">{output}</pre>
+
                     </div>}
                 </div>
             </div>
