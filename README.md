@@ -1,5 +1,4 @@
-Frontend Hosted At https://dcode-contests.netlify.app/
-Backend Hosted At https://dcode-backend.herokuapp.com/
+App Link - https://dcode-contests.netlify.app/
 
 ### App Features
 This is an app for competitive programmers for whom it is too difficult to remember many contests timing on various platforms.
